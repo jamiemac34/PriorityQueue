@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeapPriorityQueue.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="PriorityItem.cs" />
     <Compile Include="PriorityQueue.cs" />
@@ -60,6 +61,9 @@
     <Compile Include="QueueOverflowException.cs" />
     <Compile Include="QueueUnderflowException.cs" />
     <Compile Include="SortedArrayPriorityQueue.cs" />
+    <Compile Include="SortedLinkedPriorityQueue.cs" />
+    <Compile Include="UnsortedArrayPriorityQueue.cs" />
+    <Compile Include="UnsortedLinkedPriorityQueue.cs" />
     <EmbeddedResource Include="QueueManager.resx">
       <DependentUpon>QueueManager.cs</DependentUpon>
     </EmbeddedResource>
