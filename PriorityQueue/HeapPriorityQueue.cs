@@ -14,14 +14,21 @@ namespace PriorityQueue
     public class HeapPriorityQueue<T> : PriorityQueue<T>
     {
         private readonly List<PriorityItem<T>> storage;
+        private readonly int capacity;
 
         public HeapPriorityQueue(int size)
         {
             storage = new List<PriorityItem<T>>(size);
+            capacity = size;
         }
 
         public void Add(T item, int priority)
         {
+            if (storage.Count == capacity)
+            {
+                throw new QueueOverflowException();
+            }
+
             storage.Add(new PriorityItem<T>(item, priority));
             int index = storage.Count - 1;
 

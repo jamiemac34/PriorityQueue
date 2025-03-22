@@ -27,11 +27,15 @@ namespace PriorityQueue
         }
 
         private Node head;
+        private int capacity;
+        private int count;
 
-
+        // replacing the array initialisations with a single node head initialisation
         public SortedLinkedPriorityQueue(int size)
         {
             head = null;
+            capacity = size;
+            count = -1;
         }
 
         // simplification to always return the head as it is always the highest
@@ -47,6 +51,13 @@ namespace PriorityQueue
         // expansion to order when added, loops through to find the correct position to put the new entry
         public void Add(T item, int priority)
         {
+            count++;
+            if (count == capacity)
+            {
+                count--;
+                throw new QueueOverflowException();
+            }
+
             Node newEnt = new Node(new PriorityItem<T>(item, priority));
             if (head == null || head.Entry.Priority < newEnt.Entry.Priority) {
                 newEnt.Next = head;
@@ -74,6 +85,7 @@ namespace PriorityQueue
             }
 
             head = head.Next;
+            count--;
 
         }
 
