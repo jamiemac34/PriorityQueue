@@ -23,8 +23,9 @@ namespace PriorityQueue.test
         private UnsortedArrayPriorityQueue<Person> unsortedArrayQueue;
         private UnsortedLinkedPriorityQueue<Person> unsortedLinkedQueue;
 
+        // tests the overflow exception, succesfully executing this also confirms the add function works
         [Test]
-        public void TestAdd_ExceedingCapacity_ShouldThrowQueueOverflowException()
+        public void TestOverflow()
         {
             // filling queues
             heapQueue.Add(new Person("entry 0"), 0);
@@ -94,5 +95,103 @@ namespace PriorityQueue.test
                 unsortedLinkedQueue.Add(new Person("entry 8"), 8)
             );
         }
+
+        // tests the underflow exception, succesfully executing this also confirms the remove function works
+        [Test]
+        public void TestUnderflow()
+        {
+            Assert.Throws<QueueUnderflowException>(() =>
+                heapQueue.Remove()
+            );
+
+            Assert.Throws<QueueUnderflowException>(() =>
+                sortedArrayQueue.Remove()
+            );
+
+            Assert.Throws<QueueUnderflowException>(() =>
+                sortedLinkedQueue.Remove()
+            );
+
+            Assert.Throws<QueueUnderflowException>(() =>
+                unsortedArrayQueue.Remove()
+            );
+
+            Assert.Throws<QueueUnderflowException>(() =>
+                unsortedLinkedQueue.Remove()
+            );
+        }
+
+        // tests if each implementation properly handles the priorities
+        [Test]
+        public void TestCorrectPriority()
+        {
+            // Filling queues
+            heapQueue.Add(new Person("entry 1"), 1);
+            heapQueue.Add(new Person("entry 2"), 2);
+            heapQueue.Add(new Person("entry 0"), 0);
+
+            sortedArrayQueue.Add(new Person("entry 1"), 1);
+            sortedArrayQueue.Add(new Person("entry 2"), 2);
+            sortedArrayQueue.Add(new Person("entry 0"), 0);
+
+            sortedLinkedQueue.Add(new Person("entry 1"), 1);
+            sortedLinkedQueue.Add(new Person("entry 2"), 2);
+            sortedLinkedQueue.Add(new Person("entry 0"), 0);
+
+            unsortedArrayQueue.Add(new Person("entry 1"), 1);
+            unsortedArrayQueue.Add(new Person("entry 2"), 2);
+            unsortedArrayQueue.Add(new Person("entry 0"), 0);
+
+            unsortedLinkedQueue.Add(new Person("entry 1"), 1);
+            unsortedLinkedQueue.Add(new Person("entry 2"), 2);
+            unsortedLinkedQueue.Add(new Person("entry 0"), 0);
+
+            // Testing correct priority on insert
+            Assert.That(heapQueue.Head().ToString(), Is.EqualTo("entry 2"));
+            Assert.That(sortedArrayQueue.Head().ToString(), Is.EqualTo("entry 2"));
+            Assert.That(sortedLinkedQueue.Head().ToString(), Is.EqualTo("entry 2"));
+            Assert.That(unsortedArrayQueue.Head().ToString(), Is.EqualTo("entry 2"));
+            Assert.That(unsortedLinkedQueue.Head().ToString(), Is.EqualTo("entry 2"));
+
+            // Testing after remove
+            heapQueue.Remove();
+            sortedArrayQueue.Remove();
+            sortedLinkedQueue.Remove();
+            unsortedArrayQueue.Remove();
+            unsortedLinkedQueue.Remove();
+
+            Assert.That(heapQueue.Head().ToString(), Is.EqualTo("entry 1"));
+            Assert.That(sortedArrayQueue.Head().ToString(), Is.EqualTo("entry 1"));
+            Assert.That(sortedLinkedQueue.Head().ToString(), Is.EqualTo("entry 1"));
+            Assert.That(unsortedArrayQueue.Head().ToString(), Is.EqualTo("entry 1"));
+            Assert.That(unsortedLinkedQueue.Head().ToString(), Is.EqualTo("entry 1"));
+        }
+
+        // tests the isEmpty function on each implementation
+        [Test]
+        public void TestIsEmpty()
+        {
+            // test while they should be empty
+            Assert.That(heapQueue.IsEmpty(), Is.EqualTo(true));
+            Assert.That(sortedArrayQueue.IsEmpty(), Is.EqualTo(true));
+            Assert.That(sortedLinkedQueue.IsEmpty(), Is.EqualTo(true));
+            Assert.That(unsortedArrayQueue.IsEmpty(), Is.EqualTo(true));
+            Assert.That(unsortedLinkedQueue.IsEmpty(), Is.EqualTo(true));
+
+            // adding then testing when should be empty
+            heapQueue.Add(new Person("entry 1"), 1);
+            sortedArrayQueue.Add(new Person("entry 1"), 1);
+            sortedLinkedQueue.Add(new Person("entry 1"), 1);
+            unsortedArrayQueue.Add(new Person("entry 1"), 1);
+            unsortedLinkedQueue.Add(new Person("entry 1"), 1);
+
+            Assert.That(heapQueue.IsEmpty(), Is.EqualTo(false));
+            Assert.That(sortedArrayQueue.IsEmpty(), Is.EqualTo(false));
+            Assert.That(sortedLinkedQueue.IsEmpty(), Is.EqualTo(false));
+            Assert.That(unsortedArrayQueue.IsEmpty(), Is.EqualTo(false));
+            Assert.That(unsortedLinkedQueue.IsEmpty(), Is.EqualTo(false));
+
+        }
+
     }
 }
