@@ -28,11 +28,15 @@ namespace PriorityQueue
         }
         
         private Node head;
+        private int capacity;
+        private int count;
 
         // replacing the array initialisations with a single node head initialisation
         public UnsortedLinkedPriorityQueue(int size)
         {
             head = null;
+            capacity = size;
+            count = -1;
         }
 
         public T Head()
@@ -47,9 +51,17 @@ namespace PriorityQueue
         // creates a new node, inserting it first by setting it's next to the current head and head to it
         public void Add(T item, int priority)
         {
+            count++;
+            if (count == capacity)
+            {
+                count--;
+                throw new QueueOverflowException();
+            }
+
             Node newEnt = new Node(new PriorityItem<T>(item, priority));
             newEnt.Next = head;
             head = newEnt;
+            
 
         }
 
@@ -79,6 +91,7 @@ namespace PriorityQueue
             {
                 previous.Next = current.Next;
             }
+            count--;
 
         }
 
