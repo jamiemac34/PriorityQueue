@@ -9,6 +9,7 @@ namespace PriorityQueue
 
     public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
     {
+
         private class Node
         {
             public PriorityItem<T> Entry;
@@ -22,10 +23,7 @@ namespace PriorityQueue
         }
 
         private Node head;
-        
-        //private readonly PriorityItem<T>() storage;
-        //private readonly int capacity;
-        //private int tailIndex;
+
 
         public UnsortedLinkedPriorityQueue(int size)
         {
@@ -52,16 +50,30 @@ namespace PriorityQueue
 
         public void Remove()
         {
-            //if (IsEmpty())
-            //{
-            //    throw new QueueUnderflowException();
-            //}
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException();
+            }
 
-            //for (int i = getHighestPriortiy(); i < count; i++)
-            //{
-            //    storage[i] = storage[i + 1];
-            //}
-            //count--;
+            Node highest = getHighestPriortiy();
+            Node current = head;
+            Node previous = null;
+            while (current != null && current != highest) { 
+            
+                previous = current;
+                current = current.Next;
+            }
+
+            //determining what to do if once at the highest, removes head if it is the highest otherwise skips over it
+            if (previous == null)
+            {
+                head = head.Next;
+            }
+            else
+            {
+                previous.Next = current.Next;
+            }
+
         }
 
         public bool IsEmpty()
@@ -80,23 +92,15 @@ namespace PriorityQueue
             Node current = head;
             while (current != null)
             {
-                result += current.ToString();
+                result += current.Entry.ToString();
                 current = current.Next;
             }
 
-            //for (int i = 0; i <= count; i++)
-            //{
-            //    if (i > 0)
-            //    {
-            //        result += ", ";
-            //    }
-            //    result += storage[i];
-            //}
             result += "]";
             return result;
         }
 
-        //function to find the highest priority by looping through the array
+        //function to find the highest priority by looping through the list
         private Node getHighestPriortiy()
         {
             Node highest = head;
