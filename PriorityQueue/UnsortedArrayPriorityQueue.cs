@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// code referenced from lavivenpost
+// https://www.lavivienpost.net/priority-queue-implementation-using-array/
+// unless specified otherwise, the functions are direct copies from the provided SortedArrayPriorityQueue.cs
+
 namespace PriorityQueue
 {
 
@@ -20,6 +24,7 @@ namespace PriorityQueue
             count = -1;
         }
 
+        // small modifiction, uses getHighestPriority to display the highest
         public T Head()
         {
             if (IsEmpty())
@@ -29,6 +34,7 @@ namespace PriorityQueue
             return storage[getHighestPriortiy()].Item;
         }
 
+        // simplifed from the sorted version, directly adds to the queue
         public void Add(T item, int priority)
         {
             count++;
@@ -42,6 +48,7 @@ namespace PriorityQueue
         }
 
 
+        // expanded from the sorted version, uses a new function to find the highest, then orders the same way as the sorted does
         public void Remove()
         {
             if (IsEmpty())

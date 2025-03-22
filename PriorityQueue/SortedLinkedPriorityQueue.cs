@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// linked list code referenced from geeksforgeeks
+// https://www.geeksforgeeks.org/linked-list-implementation-in-c-sharp/
+// unless specified otherwise, the functions are direct copies from UnsorteLinkedPriorityQueue.cs
+
 namespace PriorityQueue
 {
 
@@ -30,6 +34,7 @@ namespace PriorityQueue
             head = null;
         }
 
+        // simplification to always return the head as it is always the highest
         public T Head()
         {
             if (IsEmpty())
@@ -39,6 +44,7 @@ namespace PriorityQueue
             return head.Entry.Item;
         }
 
+        // expansion to order when added, loops through to find the correct position to put the new entry
         public void Add(T item, int priority)
         {
             Node newEnt = new Node(new PriorityItem<T>(item, priority));
@@ -59,7 +65,7 @@ namespace PriorityQueue
 
 
 
-
+        // simplification to always remove the head as it is always the highest
         public void Remove()
         {
             if (IsEmpty())

@@ -4,12 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// linked list code referenced from geeksforgeeks
+// https://www.geeksforgeeks.org/linked-list-implementation-in-c-sharp/
+// unless specified otherwise, the functions are direct copies from UnsortedArrayPriorityQueue.cs
+
 namespace PriorityQueue
 {
 
     public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
     {
 
+        // creating a class for the nodes
         private class Node
         {
             public PriorityItem<T> Entry;
@@ -21,10 +26,10 @@ namespace PriorityQueue
             }
 
         }
-
+        
         private Node head;
 
-
+        // replacing the array initialisations with a single node head initialisation
         public UnsortedLinkedPriorityQueue(int size)
         {
             head = null;
@@ -39,6 +44,7 @@ namespace PriorityQueue
             return getHighestPriortiy().Entry.Item;
         }
 
+        // creates a new node, inserting it first by setting it's next to the current head and head to it
         public void Add(T item, int priority)
         {
             Node newEnt = new Node(new PriorityItem<T>(item, priority));
@@ -47,7 +53,7 @@ namespace PriorityQueue
 
         }
 
-
+        // removes the highest by either removing the head or by skipping over its link
         public void Remove()
         {
             if (IsEmpty())
@@ -76,11 +82,13 @@ namespace PriorityQueue
 
         }
 
+        // checks the status of the head rather than the count
         public bool IsEmpty()
         {
             return head == null;
         }
 
+        // small modification to loop through the linked list rather than an array
         public override string ToString()
         {
             if (IsEmpty())
