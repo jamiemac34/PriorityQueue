@@ -26,7 +26,7 @@ namespace PriorityQueue
             {
                 throw new QueueUnderflowException();
             }
-            return storage[0].Item;
+            return storage[getHighestPriortiy()].Item;
         }
 
         public void Add(T item, int priority)
@@ -41,6 +41,7 @@ namespace PriorityQueue
             storage[count] = new PriorityItem<T>(item, priority);
         }
 
+
         public void Remove()
         {
             if (IsEmpty())
@@ -48,11 +49,10 @@ namespace PriorityQueue
                 throw new QueueUnderflowException();
             }
 
-            if (count - 1 != -1)
+            for (int i = getHighestPriortiy(); i < count; i++)
             {
-                storage[getHighestPriortiy()] = storage[count - 1];
+                storage[i] = storage[i + 1];
             }
-            
             count--;
         }
 
