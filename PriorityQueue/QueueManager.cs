@@ -34,11 +34,11 @@ namespace PriorityQueue
             }
             else if (CB_Implementation.SelectedIndex == 2)
             {
-                InitUnsortedLinkedListQueue();
+                InitSortedLinkedListQueue();
             }
             else if (CB_Implementation.SelectedIndex == 3)
             {
-                InitSortedLinkedListQueue();
+                InitUnsortedLinkedListQueue();
             }
             else if (CB_Implementation.SelectedIndex == 4)
             {

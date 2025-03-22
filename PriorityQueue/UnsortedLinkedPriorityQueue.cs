@@ -9,36 +9,108 @@ namespace PriorityQueue
 
     public class UnsortedLinkedPriorityQueue<T> : PriorityQueue<T>
     {
-        private readonly PriorityItem<T>[] storage;
-        private readonly int capacity;
-        private int tailIndex;
+        private class Node
+        {
+            public PriorityItem<T> Entry;
+            public Node Next;
+            public Node(PriorityItem<T> Entry)
+            {
+                this.Entry = Entry;
+                this.Next = null;
+            }
+
+        }
+
+        private Node head;
+        
+        //private readonly PriorityItem<T>() storage;
+        //private readonly int capacity;
+        //private int tailIndex;
 
         public UnsortedLinkedPriorityQueue(int size)
         {
-            storage = new PriorityItem<T>[size];
-            capacity = size;
-            tailIndex = -1;
-        }
-
-        public void Add(T item, int priority)
-        {
-            throw new NotImplementedException();
+            head = null;
         }
 
         public T Head()
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException();
+            }
+            return getHighestPriortiy().Entry.Item;
+        }
+
+        public void Add(T item, int priority)
+        {
+            Node newEnt = new Node(new PriorityItem<T>(item, priority));
+            newEnt.Next = head;
+            head = newEnt;
+
+        }
+
+
+        public void Remove()
+        {
+            //if (IsEmpty())
+            //{
+            //    throw new QueueUnderflowException();
+            //}
+
+            //for (int i = getHighestPriortiy(); i < count; i++)
+            //{
+            //    storage[i] = storage[i + 1];
+            //}
+            //count--;
         }
 
         public bool IsEmpty()
         {
-            throw new NotImplementedException();
+            return head == null;
         }
 
-        public void Remove()
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            if (IsEmpty())
+            {
+                throw new QueueUnderflowException("No items to display");
+            }
+
+            string result = "[";
+            Node current = head;
+            while (current != null)
+            {
+                result += current.ToString();
+                current = current.Next;
+            }
+
+            //for (int i = 0; i <= count; i++)
+            //{
+            //    if (i > 0)
+            //    {
+            //        result += ", ";
+            //    }
+            //    result += storage[i];
+            //}
+            result += "]";
+            return result;
+        }
+
+        //function to find the highest priority by looping through the array
+        private Node getHighestPriortiy()
+        {
+            Node highest = head;
+            Node current = head;
+            while (current != null)
+            {
+                if (current.Entry.Priority > highest.Entry.Priority)
+                {
+                    highest = current;
+                }
+                current = current.Next;
+            }
+
+            return highest;
         }
     }
 }
-
